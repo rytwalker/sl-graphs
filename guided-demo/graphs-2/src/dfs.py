@@ -12,6 +12,7 @@ class Vertex:
     """Represent a vertex with label and set of edges to other vertices."""
     # Just holds data, but is class and not namedtuple/dict so it is hashable
     # pylint: disable=too-few-public-methods
+
     def __init__(self, label):
         self.label = label
         self.edges = set()
@@ -22,6 +23,7 @@ class Vertex:
 
 class Graph:
     """Represent a graph and enable depth-first search."""
+
     def __init__(self):
         self.vertices = set()
 
