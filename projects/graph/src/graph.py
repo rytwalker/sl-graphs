@@ -61,3 +61,94 @@ class Graph:
                 print(vert)
                 for edge in self.vertices[vert]:
                     queue.append(edge)
+
+    def bfs(self, starting_vert, target):
+        queue = deque()
+        visited = set()
+        path = []
+        path.append(starting_vert)
+        queue.append(path)
+
+        while queue:
+            shortest_path = queue.popleft()
+            if shortest_path[-1] == target:
+                return shortest_path
+            if shortest_path[-1] not in visited:
+                visited.add(shortest_path[-1])
+
+                for edge in self.vertices[shortest_path[-1]]:
+                    new_path = shortest_path[:]
+                    new_path.append(edge)
+                    queue.append(new_path)
+
+        return 'not found'
+
+    def dfs(self, starting_vert, target):
+        stack = deque()
+        visited = set()
+        path = []
+        path.append(starting_vert)
+        stack.append(path)
+
+        while stack:
+            shortest_path = stack.pop()
+            if shortest_path[-1] == target:
+                return shortest_path
+            if shortest_path[-1] not in visited:
+                visited.add(shortest_path[-1])
+
+                for edge in self.vertices[shortest_path[-1]]:
+                    new_path = shortest_path[:]
+                    new_path.append(edge)
+                    stack.append(new_path)
+
+        return 'not found'
+
+    def breadth_first_search(self, start, target):
+        queue = [start]
+        result = []
+
+        while len(queue) > 0:
+            currentVertex = queue.pop(0)
+            result.append(currentVertex)
+            if currentVertex == target:
+                break
+            else:
+                for value in self.vertices[currentVertex]:
+                    queue.append(value)
+        return result
+
+    def breadth_first_traversal(self, start):
+        queue = [start]
+        result = []
+        visited = {}
+
+        visited[start] = True
+        while len(queue) != 0:
+            currentVertex = queue.pop(0)
+            result.append(currentVertex)
+
+            for value in self.vertices[currentVertex]:
+                if value not in visited:
+                    visited[value] = True
+                    queue.append(value)
+
+        return result
+
+    def depth_first_search(self, start, target):
+        stack = [start]
+        result = []
+        visited = {}
+
+        while len(stack) != 0:
+            currentVertex = stack.pop()
+            print(stack)
+            result.append(currentVertex)
+            if currentVertex == target:
+                break
+            else:
+                for value in self.vertices[currentVertex]:
+                    if value not in visited:
+                        visited[value] = True
+                        stack.append(value)
+        return result
